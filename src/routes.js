@@ -1,9 +1,20 @@
 import Hapi from "@hapi/hapi";
+import {
+   httpGetNote,
+   httpAddNote,
+   httpChangeNote,
+   httpDeleteNote
+} from './handler.js';
 
 const routes = {
-   '/': {
-      _GET: () => ({status: 'GET Success'}),
-      _POST: () => ({status: 'POST Success'})
+   '/notes': {
+      '{id}': {
+         _GET: httpGetNote,
+         _PUT: httpChangeNote,
+         _DELETE: httpDeleteNote,
+      },
+      _GET: httpGetNote,
+      _POST: httpAddNote
    }
 };
 
