@@ -1,4 +1,5 @@
 import Hapi from "@hapi/hapi";
+import routes from "./src/routes.js";
 
 const [HOST, PORT] = ['localhost', 5000]
 
