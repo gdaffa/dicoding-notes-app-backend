@@ -1,24 +1,34 @@
 import Hapi from "@hapi/hapi";
 import { randstr } from './utils.js';
 
+// =============================================================================
+
 /**
  * @type {Map<string, { title: string; tags: string[]; body: string; createdAt: string; updatedAt: string; }>}
  */
 let notes = new Map();
 
+// =============================================================================
+
+/**
+ * Get and transform `notes` from `Map` to list of `Object`. Each object contain
+ * all note data, including key.
+ */
 function getNotesAsObject() {
    return [...notes].map(([ id, note ]) => ({ id, ...note }));
 }
 
 /**
+ * Response generator shorthand.
+ *
  * @param {Hapi.ResponseToolkit} h
  * @param {string} status
  * @param {number} code
- * @param {message} message
- * @param {object} options
+ * @param {string} message
+ * @param {object} data
  */
-function sendResponse(h, status, code, message, options = {}) {
-   let res = h.response({ status, code, message, ...options });
+function sendResponse(h, status, code, message, data = {}) {
+   let res = h.response({ status, code, message, ...data });
    res.code(code);
    return res;
 }
@@ -50,6 +60,8 @@ function httpHandleError(func) {
 }
 
 /**
+ * Handle HTTP request to get a single/all note(s).
+ *
  * @type {Hapi.Lifecycle.Method}
  */
 const httpGetNote = httpHandleError((req, h) => {
@@ -72,6 +84,8 @@ const httpGetNote = httpHandleError((req, h) => {
 });
 
 /**
+ * Handle HTTP request to add a new note.
+ *
  * @type {Hapi.Lifecycle.Method}
  */
 const httpAddNote = httpHandleError((req, h) => {
@@ -95,9 +109,11 @@ const httpAddNote = httpHandleError((req, h) => {
 });
 
 /**
+ * Handle HTTP request to edit a stored note.
+ *
  * @type {Hapi.Lifecycle.Method}
  */
-const httpChangeNote = httpHandleError((req, h) => {
+const httpEditNote = httpHandleError((req, h) => {
    let { id } = req.params;
    let { title, tags, body } = req.payload;
 
@@ -117,6 +133,8 @@ const httpChangeNote = httpHandleError((req, h) => {
 });
 
 /**
+ * Handle HTTP request to delete a single note.
+ *
  * @type {Hapi.Lifecycle.Method}
  */
 const httpDeleteNote = httpHandleError((req, h) => {
@@ -127,10 +145,12 @@ const httpDeleteNote = httpHandleError((req, h) => {
    return sendResponse(h, 'success', 200, 'Catatan berhasil dihapus.');
 });
 
+// =============================================================================
+
 export {
    notes,
    httpGetNote,
    httpAddNote,
-   httpChangeNote,
+   httpEditNote,
    httpDeleteNote
 };

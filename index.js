@@ -1,8 +1,13 @@
 import Hapi from "@hapi/hapi";
 import routes from "./src/routes.js";
 
-const [HOST, PORT] = ['localhost', 5000]
+const [HOST, PORT] = ['localhost', 5000];
 
+// =============================================================================
+
+/**
+ * Initialize HTTP server with Hapi.
+ */
 async function init() {
    const server = Hapi.server({
       host: HOST,
@@ -18,5 +23,7 @@ async function init() {
    await server.start();
    console.log(`Listening to ${server.info.uri}`);
 }
+
+// =============================================================================
 
 init();

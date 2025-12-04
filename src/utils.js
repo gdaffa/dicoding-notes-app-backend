@@ -1,3 +1,9 @@
+/**
+ * Random string generator with `length` length. Generate from list of upper and
+ * lower alphabets, and numbers.
+ * 
+ * @param {number} length
+ */
 const randstr = (function () {
    const firstAlphaOrd  = 'A'.charCodeAt(0);
    const lastAlphaOrd   = 'Z'.charCodeAt(0);
@@ -28,12 +34,16 @@ const randstr = (function () {
 })();
 
 /**
+ * Random int generator from `start` to `end` (excluded).
+ *
  * @param {number} start 
  * @param {number} end 
  */
 function randrange(start, end) {
    return Math.floor(Math.random() * (end - start)) + start;
 }
+
+// =============================================================================
 
 export {
    randstr,
