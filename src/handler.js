@@ -17,7 +17,7 @@ function getNotesAsObject() {
  * @param {message} message
  * @param {object} options
  */
-function sendResponse(h, status, code, message, options = null) {
+function sendResponse(h, status, code, message, options = {}) {
    let res = h.response({ status, code, message, ...options });
    res.code(code);
    return res;
