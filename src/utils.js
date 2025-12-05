@@ -10,10 +10,11 @@ const randstr = (function () {
    const firstNumberOrd = '0'.charCodeAt(0);
    const lastNumberOrd  = '9'.charCodeAt(0);
 
-   const alphaList = Array(lastAlphaOrd - firstAlphaOrd)
+   // add 1 to include the last item
+   const alphaList = Array(lastAlphaOrd - firstAlphaOrd + 1)
       .fill()
       .map((_, i) => String.fromCharCode(i + firstAlphaOrd));
-   const numberList = Array(lastNumberOrd - firstNumberOrd)
+   const numberList = Array(lastNumberOrd - firstNumberOrd + 1)
       .fill()
       .map((_, i) => String.fromCharCode(i + firstNumberOrd));
    const lowAlphaList = alphaList
