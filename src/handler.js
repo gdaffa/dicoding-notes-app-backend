@@ -95,7 +95,7 @@ const httpAddNote = httpHandleError((req, h) => {
    let id;
    do {
       id = randstr(16);
-   } while(!notes.has(id));
+   } while(notes.has(id));
 
    let newNote = {
       title, tags, body,
